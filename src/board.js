@@ -6,12 +6,13 @@ class Board extends Component {
     
     state={
         // Rand:0
-     words:['cat', 'tomatoe', 'paris', 'dog'],
+     words:['cat', 'tomato', 'paris', 'dog'],
      words1:['Jeddah', 'Makkah', 'Toronto', 'Paris'],
      words2:['Amany', 'Ali', 'attas'],
      wordsLetter:[],
      selectedWord:"",
      RandomIndex:[],
+     flag:false,
      letters:['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'],
      gameBoardDemo1: [
          '', 'c', '', '', '', '', '',
@@ -21,6 +22,7 @@ class Board extends Component {
          '', '', 'g', '', '', '', '',
          't', 'o', 'm', 'a', 't', 'o', '',
          '', '', '', '', '', '', '',
+         
 
      ],
 
@@ -85,34 +87,41 @@ class Board extends Component {
     selecting= event =>{
         
         event.preventDefault();
-        if (event.type == 'mouseenter') {
+        
             
          
         // console.log(this.state.selectedWord)
         console.log(event.target.innerText)
         // console.log(event.target.id)
         let id =event.target.id
+        
         const char = event.target.innerText
         // event.target.style.background="blue"
-        event.target.style.background = 'pink'
+        $(event.target).addClass('pink') 
         const clone = this.state.selectedWord.concat(char);
+        // $(event).off("mouseenter")
         // clone.push(char)
-
+        
         console.log("clone  "+clone)
         
         this.setState({
             selectedWord:clone
         })
         
-        this.state.words.forEach(element=>{
+        this.state.words.forEach((element,i)=>{
             if(element==clone){
                 this.setState({
                     selectedWord:""
                 })
+                this.state.flag=true;
+                $('.pink').addClass('green')
+                $('.pink').removeClass('pink')
+                console.log('index  '+i)
+                $(`.${i}`).addClass('line-through')
                 return console.log('true')
             }else{
                 if(clone.length==7 ){
-                    $('.box').css("background-color", "white")
+                    $('.pink').removeClass('pink')
                     // event.target.style.background = ''
                     this.setState({
                     selectedWord:""
@@ -123,7 +132,7 @@ class Board extends Component {
             }
             
         })
-    }
+    
     // else if (event.type == 'mouseout') {
     //   event.target.style.background = ''
     // }
@@ -131,7 +140,10 @@ class Board extends Component {
     }
     
     render() {
-
+        // if(this.state.flag && $('.box').hasClass('pink')){
+        //     console.log('llllllllllolllll')
+        // }
+        
         // const letters=['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z']
         // const gameBoard = []
         
@@ -243,19 +255,22 @@ class Board extends Component {
         let ind=0;
         return (
 
-            <div className="puzzle-container">
-                  <div> 
+            <div >
+                  
+                     
+                      <div className="puzzle-container"> 
                 {
                       
                  // loop through empty board      
                  this.state.gameBoardDemo1.map((element,i) => { 
                     //  console.log("R "+rand) 
+
  
                      // get random number 0-26 for random letter in alphabet
                     if (element === "") {
                         // return this.state.RandomIndex.map(e=>(
                             ind++;
-                            return <div id={i} onMouseEnter={this.selecting}  className="box">{this.state.RandomIndex[ind]}</div>
+                            return <div id={i} onClick={this.selecting}  className="box">{this.state.RandomIndex[ind]}</div>
                             
 
                         // ))
@@ -280,6 +295,11 @@ class Board extends Component {
                 )
                 }
                 </div> 
+                <div id='words'>
+                        {this.state.words.map((e,i)=>{
+                            return <p className={i}>{e}+{i}</p>
+                        })}
+                      </div>
                 
             </div>
         );

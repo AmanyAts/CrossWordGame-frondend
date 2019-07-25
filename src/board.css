@@ -23,6 +23,16 @@
     float:left;
     background:#fff;
   }
+  .pink{
+    background:pink;
+  }
+  .green{
+    background:green;  
+  }
+  .line-through{
+    text-decoration: line-through;
+
+  }
   .background{
     background:#000;
   }
