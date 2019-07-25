@@ -1,0 +1,28 @@
+.puzzle-container{
+    margin:20px auto 40px;
+    box-shadow:0 0 20px rgba(0,0,0,0.2);
+    width:410px;
+    height:410px;
+    padding:20px;
+    background:#C3E5F1;
+    border-radius:10px;
+    font-size:20px;
+    float:left;
+    overflow:hidden;
+    cursor:pointer;
+}
+
+.box {
+    margin:3px;
+    width:45px;
+    height:45px;
+    line-height:45px;
+    text-align:center;
+    box-shadow:0 0 5px rgba(0,0,0,0.1);
+    border-radius:5px;
+    float:left;
+    background:#fff;
+  }
+  .background{
+    background:#000;
+  }

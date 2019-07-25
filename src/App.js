@@ -9,6 +9,7 @@ import SignIn from './auth/components/SignIn'
 import SignOut from './auth/components/SignOut'
 import ChangePassword from './auth/components/ChangePassword'
 import AlertDismissible from './auth/components/AlertDismissible'
+import Board from './board'
 
 class App extends Component {
   constructor () {
@@ -33,10 +34,13 @@ class App extends Component {
 
     return (
       <React.Fragment>
+       
         <Header user={user} />
         {alerts.map((alert, index) => (
           <AlertDismissible key={index} variant={alert.type} message={alert.message} />
         ))}
+         <Board/>
+
         <main className="container">
           <Route path='/sign-up' render={() => (
             <SignUp alert={this.alert} setUser={this.setUser} />
