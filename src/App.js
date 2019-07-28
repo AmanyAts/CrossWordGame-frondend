@@ -10,6 +10,8 @@ import SignOut from './auth/components/SignOut'
 import ChangePassword from './auth/components/ChangePassword'
 import AlertDismissible from './auth/components/AlertDismissible'
 import Board from './board'
+import Result from './results'
+import AllResults from './allResults'
 
 class App extends Component {
   constructor () {
@@ -39,7 +41,17 @@ class App extends Component {
         {alerts.map((alert, index) => (
           <AlertDismissible key={index} variant={alert.type} message={alert.message} />
         ))}
-         <Board/>
+        {/* <Board user={user}/> */}
+         <AuthenticatedRoute user={user} exact path='/' render={() => (
+            <Board alert={this.alert} user={user} />
+          )} />
+
+            <AllResults />
+        
+          
+          
+       
+        
 
         <main className="container">
           <Route path='/sign-up' render={() => (
@@ -53,6 +65,9 @@ class App extends Component {
           )} />
           <AuthenticatedRoute user={user} path='/change-password' render={() => (
             <ChangePassword alert={this.alert} user={user} />
+          )} />
+           <AuthenticatedRoute user={user} exact path='/result' render={() => (
+            <Result user={user}/>
           )} />
         </main>
       </React.Fragment>

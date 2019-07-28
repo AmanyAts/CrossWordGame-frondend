@@ -1,7 +1,9 @@
 .puzzle-container{
     margin:20px auto 40px;
     box-shadow:0 0 20px rgba(0,0,0,0.2);
-    width:410px;
+    /* width:410px; */
+    text-align: center;
+    width:690px;
     height:410px;
     padding:20px;
     background:#C3E5F1;

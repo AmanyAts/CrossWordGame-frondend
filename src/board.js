@@ -1,30 +1,47 @@
 import React, { Component } from 'react';
 import './board.css'
 // import Box from './box'
+
+import Timer from './timer'
 import $ from "jquery";
+
 class Board extends Component {
     
     state={
         // Rand:0
-     words:['cat', 'tomato', 'paris', 'dog'],
+     words:['cat', 'jeddah', 'paris', 'dog'],
      words1:['Jeddah', 'Makkah', 'Toronto', 'Paris'],
      words2:['Amany', 'Ali', 'attas'],
      wordsLetter:[],
      selectedWord:"",
+     idNumber:[],
      RandomIndex:[],
      flag:false,
+     point:0,
+     score:[],
      letters:['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'],
      gameBoardDemo1: [
-         '', 'c', '', '', '', '', '',
-         '', 'a', '', '', '', '', '',
-         'd','t', '', '', '', '', '',
-         '', 'o', 'p', 'a', 'r', 'i', 's',
-         '', '', 'g', '', '', '', '',
-         't', 'o', 'm', 'a', 't', 'o', '',
-         '', '', '', '', '', '', '',
-         
+         '', 'c', '', '', 'd', '', '','', '', '', '', '',
+         '', 'a', '', '', '', 'o', '','', '', '', '', '',
+         '', 't', '', '', '', '', 'g','', '', '', '', '',
+         '', '', '', '', '', '', 'p','a', 'r', 'i', 's', '',
+         '', '', '', '', '', '', '','', '', '', '', '',
+         '', 'j', 'e', 'd', 'd', 'a', 'h','', '', '', '', '',
+         '', '', '', '', '', '', '','', '', '', '', '',
 
+       
      ],
+     gameBoardDemo2: [
+        '', 'a', '', '', '', '', '',
+        '', 'p', '', '', '', '', '',
+        '','p', '', '', '', '', '',
+        '', 'l', 'g', 'r', 'a', 'p', 'e',
+        '', 'e', '', '', '', '', '',
+        't', 'o', 'm', 'a', 't', 'o', '',
+        '', '', '', '', '', '', '',
+        
+
+    ],
 
     }
     // getRandom=()=>{
@@ -94,7 +111,9 @@ class Board extends Component {
         console.log(event.target.innerText)
         // console.log(event.target.id)
         let id =event.target.id
-        
+        console.log("id: "+id)
+        const copyID=this.state.idNumber;
+        copyID.push(id)
         const char = event.target.innerText
         // event.target.style.background="blue"
         $(event.target).addClass('pink') 
@@ -105,11 +124,21 @@ class Board extends Component {
         console.log("clone  "+clone)
         
         this.setState({
-            selectedWord:clone
+            selectedWord:clone,
+            idNumber:copyID
         })
+
+        // for (let i = 0; i < this.state.idNumber.length; i++) {
+        //     // console.log('for')
+        //     if(this.state.idNumber[i]==this.state.idNumber[i]+1){
+        //         console.log('false')
+        //     }
+        //     // console.log(this.state.idNumber[i])
+            
+        // }
         
         this.state.words.forEach((element,i)=>{
-            if(element==clone){
+            if(element===clone){
                 this.setState({
                     selectedWord:""
                 })
@@ -118,15 +147,35 @@ class Board extends Component {
                 $('.pink').removeClass('pink')
                 console.log('index  '+i)
                 $(`.${i}`).addClass('line-through')
+                this.setState({
+                    point:this.state.point+1
+                })
                 return console.log('true')
             }else{
-                if(clone.length==7 ){
+                if(clone.length===7 ){
                     $('.pink').removeClass('pink')
                     // event.target.style.background = ''
                     this.setState({
-                    selectedWord:""
+                    selectedWord:"",
+                    idNumber:[]
                 })
                     console.log('false')
+                }
+                else if (clone.length>1 ){
+                    let firstSelect =parseFloat(this.state.idNumber[0])
+                    console.log(this.state.idNumber[0])
+                    let nextSelect=parseFloat(this.state.idNumber[1])
+                    console.log(nextSelect)
+                    // if(nextSelect!==firstSelect+1 || nextSelect!==firstSelect+7){
+                    //     $('.pink').removeClass('pink')
+                    //     // event.target.style.background = ''
+                    //     this.setState({
+                    //     selectedWord:"",
+                    //     idNumber:[]
+                    // })
+                    //     console.log('false')
+                    // }
+                 
                 }
                 return false
             }
@@ -270,14 +319,17 @@ class Board extends Component {
                     if (element === "") {
                         // return this.state.RandomIndex.map(e=>(
                             ind++;
-                            return <div id={i} onClick={this.selecting}  className="box">{this.state.RandomIndex[ind]}</div>
+                            if(ind===this.state.RandomIndex.length-1){
+                                ind=0
+                            }
+                            return <div  key={i} onClick={this.selecting}  className="box">{this.state.RandomIndex[ind]}</div>
                             
 
                         // ))
                        
                         // return <Box onClick={this.selecting} key={i} index={i} word={letters[RandomIndex]} words={this.state.words}/>
                     } else {
-                        return <div id={i} onClick={this.selecting}  className="box">{element}</div>
+                        return <div key={i} onClick={this.selecting}  className="box">{element}</div>
 
                         // return <Box key={i} index={i} word={element} words={this.state.words}/>
 
@@ -297,9 +349,12 @@ class Board extends Component {
                 </div> 
                 <div id='words'>
                         {this.state.words.map((e,i)=>{
-                            return <p className={i}>{e}+{i}</p>
+                            return <p key={i} className={i}>{e}</p>
                         })}
+                        <Timer score={this.state.point} user={this.props.user}/>
                       </div>
+
+                     
                 
             </div>
         );
