@@ -9,7 +9,7 @@
     background:#C3E5F1;
     border-radius:10px;
     font-size:20px;
-    float:left;
+    /* float:left; */
     overflow:hidden;
     cursor:pointer;
 }
@@ -20,13 +20,17 @@
     height:45px;
     line-height:45px;
     text-align:center;
-    box-shadow:0 0 5px rgba(0,0,0,0.1);
+    /* box-shadow:0 0 5px rgba(0,0,0,0.1); */
     border-radius:5px;
     float:left;
-    background:#fff;
+    /* background:#fff; */
+  }
+  .container{
+    display: flex;
   }
   .pink{
     background:pink;
+    
   }
   .green{
     background:green;  

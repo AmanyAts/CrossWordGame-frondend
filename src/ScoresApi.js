@@ -35,3 +35,29 @@ export const create = (user,time) => {
       }
     })
   }
+  export const show = (user, scoreId) => {
+    return axios({
+        method:'GET',
+        url: apiUrl + `/results/${scoreId}`,
+        headers:{
+            "Authorization":`Bearer ${user.token}`
+        }
+    })
+}
+export const Update = (user, time,game,scoreId) => {
+  return axios({
+      method:'PUT',
+      url: apiUrl + `/results/${scoreId}`,
+      headers:{
+          "Authorization":`Bearer ${user.token}`
+      },
+      data:{
+        score:{
+          0:{
+          time:time,
+          game:game
+          }
+      }
+      }
+  })
+}

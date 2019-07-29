@@ -42,11 +42,11 @@ class App extends Component {
           <AlertDismissible key={index} variant={alert.type} message={alert.message} />
         ))}
         {/* <Board user={user}/> */}
-         <AuthenticatedRoute user={user} exact path='/' render={() => (
-            <Board alert={this.alert} user={user} />
+         <AuthenticatedRoute user={user} exact path='/' render={(props) => (
+            <Board alert={this.alert} user={user} scoreId={props.match.params.id} />
           )} />
 
-            <AllResults />
+            {/* <AllResults /> */}
         
           
           

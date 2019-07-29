@@ -25,7 +25,7 @@ class Result extends Component {
                  {                    
                     this.state.scores.map((score,index) => (
                    <div key={index}>
-                        <h1>{score.time}</h1>
+                        <h2>{score.time}</h2>
                     </div>
                 ))}
             </div>

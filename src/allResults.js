@@ -26,7 +26,7 @@ class AllResults extends Component {
                         <h1>{score.time}</h1>
                     </div>
                 ))}
-                 
+
             </div>
         );
     }

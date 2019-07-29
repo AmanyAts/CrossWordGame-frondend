@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { create } from './ScoresApi';
+import { create,Update } from './ScoresApi';
 
 class Timer extends Component {
     state={
@@ -30,10 +30,11 @@ class Timer extends Component {
     }
     render() {
         let time=`${this.state.min}:${this.state.count}`
+        const scoreId = this.props.scoreId;
         if(this.props.score===4){
             console.log('win')
             clearTimeout(this.myInterval)
-            create(this.props.user,time)
+            create(this.props.user,time,1,scoreId)
         }
        
 

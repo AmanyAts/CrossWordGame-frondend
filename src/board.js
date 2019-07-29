@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
 import './board.css'
-// import Box from './box'
 
 import Timer from './timer'
 import $ from "jquery";
+import { show } from './ScoresApi';
+import { index } from './ScoresApi';
+
+// import {show} from './ScoresApi'
 
 class Board extends Component {
     
@@ -18,8 +21,10 @@ class Board extends Component {
      RandomIndex:[],
      flag:false,
      point:0,
+     gameDirection: "",
      score:[],
      letters:['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'],
+     gameBoardNum:0,
      gameBoardDemo1: [
          '', 'c', '', '', 'd', '', '','', '', '', '', '',
          '', 'a', '', '', '', 'o', '','', '', '', '', '',
@@ -32,16 +37,49 @@ class Board extends Component {
        
      ],
      gameBoardDemo2: [
-        '', 'a', '', '', '', '', '',
-        '', 'p', '', '', '', '', '',
-        '','p', '', '', '', '', '',
-        '', 'l', 'g', 'r', 'a', 'p', 'e',
-        '', 'e', '', '', '', '', '',
-        't', 'o', 'm', 'a', 't', 'o', '',
-        '', '', '', '', '', '', '',
+         'a', '', '', '', '', '', 'g','', '', '', '', '',
+         'p', '', '', '', '', '', '','r', '', '', '', '',
+         'p', '', '', '', '', '', '','', 'a', '', '', '',
+         'l', '', '', '', '', '', '','', '', 'p', '', '',
+         'e', '', '', '', '', '', '','', '', '', 'e', '',
+         '', '', '', '', '', '', '','', '', '', '', '',
+         '', '', '', '', 't', 'o', 'm','a', 't', 'o', '', '',
         
 
     ],
+    gameBoardDemo3: [
+        'b', '', '', '', '', '', 'g','', '', '', '', '',
+        'a', '', '', '', '', '', '','r', '', '', '', '',
+        'n', '', '', '', '', '', '','', 'a', '', '', '',
+        'a', '', '', '', '', '', '','', '', 'p', '', '',
+        'n', '', '', '', '', '', '','', '', '', 'e', '',
+        'a', '', '', '', '', '', '','', '', '', '', '',
+        '', '', '', '', 't', 'o', 'm','a', 't', 'o', '', '',
+       
+
+   ],
+   gameBoardDemo4: [
+    'r', '', '', '', '', '', 'g','', '', '', '', '',
+    'a', '', '', '', '', '', '','r', '', '', '', '',
+    'b', '', '', '', '', '', '','', 'a', '', '', '',
+    'b', '', '', '', '', '', '','', '', 'p', '', '',
+    'i', '', '', '', '', '', '','', '', '', 'e', '',
+    't', '', '', '', '', '', '','', '', '', '', '',
+    '', '', '', '', 't', 'o', 'm','a', 't', 'o', '', '',
+   
+
+],
+gameBoardDemo5: [
+    'a', '', '', '', '', '', 'g','', '', '', '', '',
+    'p', '', '', '', '', '', '','r', '', '', '', '',
+    'p', '', '', '', '', '', '','', 'a', '', '', '',
+    'l', '', '', '', '', '', '','', '', 'p', '', '',
+    'e', '', '', '', '', '', '','', '', '', 'e', '',
+    '', '', '', '', '', '', '','', '', '', '', '',
+    '', '', '', '', 't', 'o', 'm','a', 't', 'o', '', '',
+   
+
+],
 
     }
     // getRandom=()=>{
@@ -98,26 +136,94 @@ class Board extends Component {
 
             // Math.floor(Math.random() * 26)
         })
+        // const user = this.props.user
+        // const scoreId = this.props.scoreId;
+        // index(user)
+        // .then(response => {
+        //     const game = response.data.scores[0].game;
+        //    console.log(response)
+        //    this.setState({
+        //        gameBoardNum:game
+        //    })
+        //  })
        
     
     }
     selecting= event =>{
         
         event.preventDefault();
-        
-            
-         
         // console.log(this.state.selectedWord)
         console.log(event.target.innerText)
         // console.log(event.target.id)
         let id =event.target.id
         console.log("id: "+id)
         const copyID=this.state.idNumber;
+        const gameDirectionKey = {
+            right: (curr, last) => curr === last +1,
+            left:  (curr, last) => curr === last -1,
+            under: (curr, last) => curr === last +12,
+            underR:(curr, last) => curr === last +13,
+            
+        }
+        let gameDirection = this.state.gameDirection 
+        // check that it is a valid move
+        if (this.state.idNumber.length > 0) {
+            let length = this.state.idNumber.length
+            let lastMove =parseFloat(this.state.idNumber[length - 1])
+            console.log("last "+lastMove)//2
+            let currentMove=parseFloat(id) //1
+            console.log("current "+currentMove)
+
+            
+            // if no gameDirection set yet
+            if ( gameDirection === "") {
+                // to the right
+                if(currentMove ===lastMove+1) {
+                    gameDirection = "right"
+                // to the left
+                } else if ( currentMove ===lastMove-1 ) { 
+                    gameDirection = "left"
+                        // under to the left
+                        // over 
+                        // over to the right
+                        // over to the left
+                    console.log("valid")
+                     // under
+                }else if(currentMove ===lastMove+12){
+                    gameDirection = "under"
+                 // under to the right
+                }else if(currentMove ===lastMove+13){
+                    gameDirection = "underR"
+                }else {
+                    console.log("invalid")
+                    return false
+                    // return false means invalid move
+                }
+            } else {
+                console.log(this.state.gameDirection)
+                console.log(gameDirectionKey[this.state.gameDirection](currentMove, lastMove))
+                if (gameDirectionKey[this.state.gameDirection](currentMove, lastMove) === false) {
+                    // return false means invalid move
+                    
+                    console.log("invalid gdk")
+                    return false
+                
+                }
+            }
+        } 
         copyID.push(id)
         const char = event.target.innerText
+        let clone = this.state.selectedWord;
         // event.target.style.background="blue"
-        $(event.target).addClass('pink') 
-        const clone = this.state.selectedWord.concat(char);
+        if($( event.target ).hasClass( "pink" )){
+            $(event.target).removeClass('pink') 
+            clone = clone.replace(char, '')
+        }else{
+            $(event.target).addClass('pink') 
+        
+             clone = clone.concat(char);
+        
+       
         // $(event).off("mouseenter")
         // clone.push(char)
         
@@ -125,8 +231,10 @@ class Board extends Component {
         
         this.setState({
             selectedWord:clone,
-            idNumber:copyID
+            idNumber:copyID,
+            gameDirection: gameDirection
         })
+    
 
         // for (let i = 0; i < this.state.idNumber.length; i++) {
         //     // console.log('for')
@@ -140,9 +248,11 @@ class Board extends Component {
         this.state.words.forEach((element,i)=>{
             if(element===clone){
                 this.setState({
-                    selectedWord:""
+                    selectedWord:"",
+                    flag:true,
+                    idNumber:[]
                 })
-                this.state.flag=true;
+              
                 $('.pink').addClass('green')
                 $('.pink').removeClass('pink')
                 console.log('index  '+i)
@@ -162,17 +272,46 @@ class Board extends Component {
                     console.log('false')
                 }
                 else if (clone.length>1 ){
-                    let firstSelect =parseFloat(this.state.idNumber[0])
-                    console.log(this.state.idNumber[0])
-                    let nextSelect=parseFloat(this.state.idNumber[1])
-                    console.log(nextSelect)
-                    // if(nextSelect!==firstSelect+1 || nextSelect!==firstSelect+7){
+                    // let length = this.state.idNumber.length
+                    // let firstSelect =parseFloat(this.state.idNumber[length - 1])
+                    // console.log(this.state.idNumber[0])
+                    // let nextSelect=parseFloat(this.state.idNumber[length - 2]) 
+                    // console.log(nextSelect)
+                    // for (let i = 0; i < copyID.length; i++) {
+                    //     console.log("First "+copyID[i])
+                    //     console.log("Next "+copyID[i+1])
+                    //     if(copyID[i+1]!==copyID[i]+1){
+                    //         $('.pink').removeClass('pink')
+                    //         // event.target.style.background = ''
+                    //         this.setState({
+                    //         selectedWord:"",
+                    //         idNumber:[]
+                    //     })
+                    //     }
+                        
+                    // }
+                    // const correct = this.state.idNumber.every((id,i) => {
+                    //                    console.log(id)
+                    //                    return this.state.idNumber[i+1]!== id+1
+                    //                  })
+                    //                  console.log("cc "+correct)
+                    //                  if(correct){
+                    //                     $('.pink').removeClass('pink')
+                    //     // event.target.style.background = ''
+                    //                     this.setState({
+                    //                     selectedWord:"",
+                    //                     idNumber:[]
+                    //                     })
+                    //                  }
+                    // if(nextSelect!==firstSelect+1 && nextSelect!==firstSelect+12 &&  nextSelect!==firstSelect+13){
+                    //    console.log("invalid")
+                    // }
                     //     $('.pink').removeClass('pink')
                     //     // event.target.style.background = ''
                     //     this.setState({
                     //     selectedWord:"",
                     //     idNumber:[]
-                    // })
+                    //      })
                     //     console.log('false')
                     // }
                  
@@ -181,6 +320,7 @@ class Board extends Component {
             }
             
         })
+    }
     
     // else if (event.type == 'mouseout') {
     //   event.target.style.background = ''
@@ -189,6 +329,7 @@ class Board extends Component {
     }
     
     render() {
+        
         // if(this.state.flag && $('.box').hasClass('pink')){
         //     console.log('llllllllllolllll')
         // }
@@ -302,14 +443,22 @@ class Board extends Component {
         // get random number 0-49 for random position on board
         // const rand=this.getRandom()
         let ind=0;
+        // let gameBoardDemo=  Math.floor(Math.random() * 2);
+        // console.log("dddd    "+gameBoardDemo)
+        // if(gameBoardDemo==1){
+        //     gameBoardDemo=this.state.gameBoardDemo1
+        // }else{
+        //     gameBoardDemo=this.state.gameBoardDemo2
+        // }
+    
         return (
 
-            <div >
+            <div className="container">
                   
                      
                       <div className="puzzle-container"> 
                 {
-                      
+                  
                  // loop through empty board      
                  this.state.gameBoardDemo1.map((element,i) => { 
                     //  console.log("R "+rand) 
@@ -322,14 +471,14 @@ class Board extends Component {
                             if(ind===this.state.RandomIndex.length-1){
                                 ind=0
                             }
-                            return <div  key={i} onClick={this.selecting}  className="box">{this.state.RandomIndex[ind]}</div>
+                            return <div id={i}  key={i} onClick={this.selecting}  className="box">{this.state.RandomIndex[ind]}</div>
                             
 
                         // ))
                        
                         // return <Box onClick={this.selecting} key={i} index={i} word={letters[RandomIndex]} words={this.state.words}/>
                     } else {
-                        return <div key={i} onClick={this.selecting}  className="box">{element}</div>
+                        return <div id={i} key={i} onClick={this.selecting}  className="box">{element}</div>
 
                         // return <Box key={i} index={i} word={element} words={this.state.words}/>
 
@@ -351,11 +500,10 @@ class Board extends Component {
                         {this.state.words.map((e,i)=>{
                             return <p key={i} className={i}>{e}</p>
                         })}
-                        <Timer score={this.state.point} user={this.props.user}/>
+                        <Timer scoreId={this.props.scoreId} score={this.state.point} user={this.props.user}/>
                       </div>
 
-                     
-                
+                                     
             </div>
         );
     }
