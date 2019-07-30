@@ -1,43 +1,57 @@
-import React, {Component} from 'react';
-import {show} from './ScoresApi'
+import React, { Component } from 'react'
+import { update } from './ScoresApi'
+import { withRouter } from 'react-router-dom'
 
-class ScoreShow extends Component{
-    state = {
-        score:{
-            level:1
-        }
+class UpdateExample extends Component {
+    state={
+      score: {
+        game: '',
+        time: ''
+      }
     }
-
-    componentDidMount(){
-        const user = this.props.user;
-        const scoreId = this.props.scoreId;
-        show(user,scoreId)
+    componentDidMount () {
+      const user = this.props.user
+      const exampleId = this.props.exampleId
+      show(user, exampleId)
         .then((response) => {
-            const showLevel = response.data.scores.level;
-            this.setState({
-                score:{
-                    level:showLevel
-                }
-            })
+          const showExample = response.data.example
+          this.setState({
+            formData: showExample
+          })
         })
         .catch((error) => console.log(error))
     }
+      handleChange = (event) => {
+        const name = event.target.name
+        const value = event.target.value
+        const updatedForm = Object.assign(this.state.formData)
+        updatedForm[name] = value
+        this.setState({
+          formData: updatedForm
+        })
+      }
 
+      handleSubmit = (event) => {
+        event.preventDefault()
+        const updatedExample = this.state.formData
+        const user = this.props.user
+        const exampleId = this.props.match.params.id
+        update(user, updatedExample, exampleId)
+          .then(() => this.props.history.push(`/examples/${exampleId}`))
+          .catch(err => console.log(err))
+      }
 
-
-    render(){
-        // console.log(this.props.memeId)
-        return(
-            <div>
-                <h1>
-                 show</h1>
-                <h1>{this.state.meme.title}</h1>
-               <h2>{this.state.meme.imageUrl}</h2>
-            </div>
+      render () {
+        return (
+          <form onSubmit={this.handleSubmit}>
+            Title
+            <input onChange={this.handleChange} type="text" name="title" value={this.state.formData.title} />
+            Text
+            <input onChange={this.handleChange} type="text" name="text" value={this.state.formData.text} />
+            <button type='submit'>Update</button>
+          </form>
         )
-    }
+      }
 }
 
-
-
-export default ScoreShow
+export default withRouter(UpdateExample)

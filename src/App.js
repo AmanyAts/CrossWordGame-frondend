@@ -1,6 +1,9 @@
 import React, { Component } from 'react'
 import './App.scss'
 import { Route } from 'react-router-dom'
+import { Eclipse } from "react-loading-io";
+import Spinnerr from './spinner'
+
 
 import AuthenticatedRoute from './auth/components/AuthenticatedRoute'
 import Header from './header/Header'
@@ -36,15 +39,25 @@ class App extends Component {
 
     return (
       <React.Fragment>
+        {/* <Eclipse size={64} /> */}
        
         <Header user={user} />
         {alerts.map((alert, index) => (
           <AlertDismissible key={index} variant={alert.type} message={alert.message} />
         ))}
         {/* <Board user={user}/> */}
+        <AuthenticatedRoute user={user} exact path='/spinner' render={(props) => (
+            <Board alert={this.alert} user={user} scoreId={props.match.params.id} />
+          )} />
          <AuthenticatedRoute user={user} exact path='/' render={(props) => (
             <Board alert={this.alert} user={user} scoreId={props.match.params.id} />
           )} />
+          
+          {/* <AuthenticatedRoute user={user} exact path='/spinner' render={() => (
+            <Spinnerr alert={this.alert} user={user}  />
+          )} /> */}
+
+
 
             {/* <AllResults /> */}
         

@@ -5,6 +5,7 @@ import Timer from './timer'
 import $ from "jquery";
 import { show } from './ScoresApi';
 import { index } from './ScoresApi';
+import { Button } from 'react-bootstrap';
 
 // import {show} from './ScoresApi'
 
@@ -26,13 +27,16 @@ class Board extends Component {
      letters:['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'],
      gameBoardNum:0,
      gameBoardDemo1: [
-         '', 'c', '', '', 'd', '', '','', '', '', '', '',
-         '', 'a', '', '', '', 'o', '','', '', '', '', '',
-         '', 't', '', '', '', '', 'g','', '', '', '', '',
-         '', '', '', '', '', '', 'p','a', 'r', 'i', 's', '',
-         '', '', '', '', '', '', '','', '', '', '', '',
-         '', 'j', 'e', 'd', 'd', 'a', 'h','', '', '', '', '',
-         '', '', '', '', '', '', '','', '', '', '', '',
+         '', 'c', '', '','', '', '','', '', '', '', '','', '',
+         '', 'a', '', '', '', '', '','', '', '', '', '','', '',
+         '', 't', '', '', '', '', '','', '', '', '', 'p','', '',
+         '', '', '', '', '', '', '','d', '', '', '', 'a','', '',
+         '', '', '', '', '', '', '','', 'o', '', '', 'r','', '',
+         '', '', '', '', '', '', '','', '', 'g', '', 'i','', '',
+         '', '', '', '', '', '', '','', '', '', '', 's','', '',
+         '', '', '', 'j', 'e', 'd', 'd','a', 'h', '', '', '','', ''
+         
+        
 
        
      ],
@@ -66,9 +70,7 @@ class Board extends Component {
     'i', '', '', '', '', '', '','', '', '', 'e', '',
     't', '', '', '', '', '', '','', '', '', '', '',
     '', '', '', '', 't', 'o', 'm','a', 't', 'o', '', '',
-   
-
-],
+    ],
 gameBoardDemo5: [
     'a', '', '', '', '', '', 'g','', '', '', '', '',
     'p', '', '', '', '', '', '','r', '', '', '', '',
@@ -161,8 +163,8 @@ gameBoardDemo5: [
         const gameDirectionKey = {
             right: (curr, last) => curr === last +1,
             left:  (curr, last) => curr === last -1,
-            under: (curr, last) => curr === last +12,
-            underR:(curr, last) => curr === last +13,
+            under: (curr, last) => curr === last +14,
+            underR:(curr, last) => curr === last +15,
             
         }
         let gameDirection = this.state.gameDirection 
@@ -189,10 +191,10 @@ gameBoardDemo5: [
                         // over to the left
                     console.log("valid")
                      // under
-                }else if(currentMove ===lastMove+12){
+                }else if(currentMove ===lastMove+14){
                     gameDirection = "under"
                  // under to the right
-                }else if(currentMove ===lastMove+13){
+                }else if(currentMove ===lastMove+15){
                     gameDirection = "underR"
                 }else {
                     console.log("invalid")
@@ -250,7 +252,8 @@ gameBoardDemo5: [
                 this.setState({
                     selectedWord:"",
                     flag:true,
-                    idNumber:[]
+                    idNumber:[],
+                    gameDirection: ''
                 })
               
                 $('.pink').addClass('green')
@@ -267,7 +270,8 @@ gameBoardDemo5: [
                     // event.target.style.background = ''
                     this.setState({
                     selectedWord:"",
-                    idNumber:[]
+                    idNumber:[],
+                    gameDirection: ''
                 })
                     console.log('false')
                 }
@@ -327,6 +331,19 @@ gameBoardDemo5: [
     // }
         
     }
+
+    rest=()=>{
+       $('.box').removeClass('pink') 
+       $('.box').removeClass('green') 
+       $('#words p').removeClass('line-through')
+       this.setState({
+        selectedWord:"",
+        idNumber:[],
+        gameDirection: '',
+        point:0
+    })
+    }
+    
     
     render() {
         
@@ -471,14 +488,14 @@ gameBoardDemo5: [
                             if(ind===this.state.RandomIndex.length-1){
                                 ind=0
                             }
-                            return <div id={i}  key={i} onClick={this.selecting}  className="box">{this.state.RandomIndex[ind]}</div>
+                            return <div id={i}  key={i} onMouseDown={this.selecting}  className="box">{this.state.RandomIndex[ind]}</div>
                             
 
                         // ))
                        
                         // return <Box onClick={this.selecting} key={i} index={i} word={letters[RandomIndex]} words={this.state.words}/>
                     } else {
-                        return <div id={i} key={i} onClick={this.selecting}  className="box">{element}</div>
+                        return <div id={i} key={i} onMouseDown={this.selecting}  className="box">{element}</div>
 
                         // return <Box key={i} index={i} word={element} words={this.state.words}/>
 
@@ -501,7 +518,9 @@ gameBoardDemo5: [
                             return <p key={i} className={i}>{e}</p>
                         })}
                         <Timer scoreId={this.props.scoreId} score={this.state.point} user={this.props.user}/>
+                        <button onClick={this.rest}>Play again</button>
                       </div>
+                      
 
                                      
             </div>

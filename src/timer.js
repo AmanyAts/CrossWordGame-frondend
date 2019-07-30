@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { create,Update } from './ScoresApi';
+import swal from 'sweetalert';
+
 
 class Timer extends Component {
     state={
@@ -32,15 +34,22 @@ class Timer extends Component {
         let time=`${this.state.min}:${this.state.count}`
         const scoreId = this.props.scoreId;
         if(this.props.score===4){
-            console.log('win')
+            
             clearTimeout(this.myInterval)
             create(this.props.user,time,1,scoreId)
+            alert('bravoooooo/n you spend '+time)
+            // swal({
+            //     title: "Good job!",
+            //     text: "You clicked the button!",
+            //     icon: "success",
+            //     button: "Aww yiss!",
+            //   });
         }
        
 
         return (
             <div>
-                <p>{time}</p>
+                {/* <p>{time}</p> */}
 
             </div>
         );

@@ -1,3 +1,9 @@
+
+
+@import url('https://fonts.googleapis.com/css?family=Abril+Fatface|Amatic+SC|Shadows+Into+Light|Acme&display=swap');
+body{
+  background-color:steelblue; 
+}
 .puzzle-container{
     margin:20px auto 40px;
     box-shadow:0 0 20px rgba(0,0,0,0.2);
@@ -6,22 +12,32 @@
     width:690px;
     height:410px;
     padding:20px;
-    background:#C3E5F1;
+    background:whitesmoke;
     border-radius:10px;
     font-size:20px;
     /* float:left; */
     overflow:hidden;
     cursor:pointer;
 }
+header{
+  background-color:deepskyblue 
+}
+button{
+  border-radius: 8px;
+  background-color:yellow;
+  border: 2px solid #4CAF50;  
+}
 
 .box {
-    margin:3px;
+    /* margin:3px; */
     width:45px;
     height:45px;
     line-height:45px;
     text-align:center;
+    font-family: 'Acme', sans-serif;
+
     /* box-shadow:0 0 5px rgba(0,0,0,0.1); */
-    border-radius:5px;
+    /* border-radius:5px; */
     float:left;
     /* background:#fff; */
   }
@@ -32,8 +48,14 @@
     background:pink;
     
   }
+  #words{
+    font-family: 'Amatic SC', cursive;
+    font-weight: bold;
+    font-size: 40px
+
+  }
   .green{
-    background:green;  
+    background:purple;  
   }
   .line-through{
     text-decoration: line-through;
