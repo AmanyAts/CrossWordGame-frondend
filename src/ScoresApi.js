@@ -35,6 +35,15 @@ export const create = (user,time) => {
       }
     })
   }
+  export const destroy = (user, scoreId) => {
+    return axios({
+        method:'DELETE',
+        url: apiUrl + `/results/${scoreId}`,
+        headers:{
+            "Authorization":`Bearer ${user.token}`
+        }
+    })
+  }
   export const show = (user, scoreId) => {
     return axios({
         method:'GET',

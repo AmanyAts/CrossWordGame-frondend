@@ -10,6 +10,7 @@ class AllResults extends Component {
         indexAll()
         .then(response => {
            const allScore = response.data.scores;
+           console.log(response)
            this.setState({
                scores:allScore
            })
@@ -23,7 +24,8 @@ class AllResults extends Component {
                 {                    
                     this.state.scores.map((score,index) => (
                    <div key={index}>
-                        <h1>{score.time}</h1>
+                        <p>{score.time}</p>
+                        <p>{score.owner}</p>
                     </div>
                 ))}
 

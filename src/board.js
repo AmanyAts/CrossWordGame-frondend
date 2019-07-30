@@ -27,13 +27,13 @@ class Board extends Component {
      letters:['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'],
      gameBoardNum:0,
      gameBoardDemo1: [
-         '', 'c', '', '','', '', '','', '', '', '', '','', '',
-         '', 'a', '', '', '', '', '','', '', '', '', '','', '',
-         '', 't', '', '', '', '', '','', '', '', '', 'p','', '',
-         '', '', '', '', '', '', '','d', '', '', '', 'a','', '',
-         '', '', '', '', '', '', '','', 'o', '', '', 'r','', '',
-         '', '', '', '', '', '', '','', '', 'g', '', 'i','', '',
-         '', '', '', '', '', '', '','', '', '', '', 's','', '',
+         '', 'T', '', '','', '', '','', '', '', '', '','', '',
+         '', 'o', '', '', '', '', '','', '', '', '', '','', '',
+         '', 'r', '', '', '', '', '','', '', '', '', 'p','', '',
+         '', 'o', '', '', '', '', '','r', '', '', '', 'a','', '',
+         '', 'n', '', '', '', '', '','', 'i', '', '', 'r','', '',
+         '', 't', '', '', '', '', '','', '', 'o', '', 'i','', '',
+         '', 'o', '', '', '', '', '','', '', '', '', 's','', '',
          '', '', '', 'j', 'e', 'd', 'd','a', 'h', '', '', '','', ''
          
         
@@ -41,13 +41,14 @@ class Board extends Component {
        
      ],
      gameBoardDemo2: [
-         'a', '', '', '', '', '', 'g','', '', '', '', '',
-         'p', '', '', '', '', '', '','r', '', '', '', '',
-         'p', '', '', '', '', '', '','', 'a', '', '', '',
-         'l', '', '', '', '', '', '','', '', 'p', '', '',
-         'e', '', '', '', '', '', '','', '', '', 'e', '',
-         '', '', '', '', '', '', '','', '', '', '', '',
-         '', '', '', '', 't', 'o', 'm','a', 't', 'o', '', '',
+        '', 'c', '', '','', '', '','', '', '', '', '','', '',
+         '', 'a', '', '', '', '', '','', '', '', '', '','', '',
+         '', 't', '', '', '', '', '','', '', '', '', 'p','', '',
+         '', '', '', '', '', '', '','d', '', '', '', 'a','', '',
+         '', '', '', '', '', '', '','', 'o', '', '', 'r','', '',
+         '', '', '', '', '', '', '','', '', 'g', '', 'i','', '',
+         '', '', '', '', '', '', '','', '', '', '', 's','', '',
+         '', '', '', 'j', 'e', 'd', 'd','a', 'h', '', '', '','', ''
         
 
     ],
@@ -275,51 +276,7 @@ gameBoardDemo5: [
                 })
                     console.log('false')
                 }
-                else if (clone.length>1 ){
-                    // let length = this.state.idNumber.length
-                    // let firstSelect =parseFloat(this.state.idNumber[length - 1])
-                    // console.log(this.state.idNumber[0])
-                    // let nextSelect=parseFloat(this.state.idNumber[length - 2]) 
-                    // console.log(nextSelect)
-                    // for (let i = 0; i < copyID.length; i++) {
-                    //     console.log("First "+copyID[i])
-                    //     console.log("Next "+copyID[i+1])
-                    //     if(copyID[i+1]!==copyID[i]+1){
-                    //         $('.pink').removeClass('pink')
-                    //         // event.target.style.background = ''
-                    //         this.setState({
-                    //         selectedWord:"",
-                    //         idNumber:[]
-                    //     })
-                    //     }
-                        
-                    // }
-                    // const correct = this.state.idNumber.every((id,i) => {
-                    //                    console.log(id)
-                    //                    return this.state.idNumber[i+1]!== id+1
-                    //                  })
-                    //                  console.log("cc "+correct)
-                    //                  if(correct){
-                    //                     $('.pink').removeClass('pink')
-                    //     // event.target.style.background = ''
-                    //                     this.setState({
-                    //                     selectedWord:"",
-                    //                     idNumber:[]
-                    //                     })
-                    //                  }
-                    // if(nextSelect!==firstSelect+1 && nextSelect!==firstSelect+12 &&  nextSelect!==firstSelect+13){
-                    //    console.log("invalid")
-                    // }
-                    //     $('.pink').removeClass('pink')
-                    //     // event.target.style.background = ''
-                    //     this.setState({
-                    //     selectedWord:"",
-                    //     idNumber:[]
-                    //      })
-                    //     console.log('false')
-                    // }
-                 
-                }
+               
                 return false
             }
             
@@ -346,7 +303,7 @@ gameBoardDemo5: [
     
     
     render() {
-        
+        console.log('iii  '+this.props.ud)
         // if(this.state.flag && $('.box').hasClass('pink')){
         //     console.log('llllllllllolllll')
         // }
@@ -467,7 +424,16 @@ gameBoardDemo5: [
         // }else{
         //     gameBoardDemo=this.state.gameBoardDemo2
         // }
-    
+        let gameBoardd=[];
+        if(this.props.ud==1){
+            
+            gameBoardd=this.state.gameBoardDemo1.slice();
+            console.log(gameBoardd)
+        }else if(this.props.ud==2){
+            gameBoardd=this.state.gameBoardDemo2.slice();
+        }else if(this.props.ud==3){
+            gameBoardd=this.state.gameBoardDemo3.slice();
+        }
         return (
 
             <div className="container">
@@ -477,7 +443,7 @@ gameBoardDemo5: [
                 {
                   
                  // loop through empty board      
-                 this.state.gameBoardDemo1.map((element,i) => { 
+                 gameBoardd.map((element,i) => { 
                     //  console.log("R "+rand) 
 
  

@@ -3,6 +3,7 @@ import './App.scss'
 import { Route } from 'react-router-dom'
 import { Eclipse } from "react-loading-io";
 import Spinnerr from './spinner'
+import Categories from './categories'
 
 
 import AuthenticatedRoute from './auth/components/AuthenticatedRoute'
@@ -47,12 +48,21 @@ class App extends Component {
         ))}
         {/* <Board user={user}/> */}
         <AuthenticatedRoute user={user} exact path='/spinner' render={(props) => (
-            <Board alert={this.alert} user={user} scoreId={props.match.params.id} />
+            <Spinnerr alert={this.alert} user={user} scoreId={props.match.params.id} />
           )} />
-         <AuthenticatedRoute user={user} exact path='/' render={(props) => (
-            <Board alert={this.alert} user={user} scoreId={props.match.params.id} />
+         <AuthenticatedRoute user={user} path='/board/:id' render={(props) => (
+            <Board alert={this.alert} user={user} ud={props.match.params.id} />
           )} />
-          
+          <AuthenticatedRoute user={user} exact path='/' render={(props) => (
+            <Categories alert={this.alert} user={user} scoreId={props.match.params.id} />
+          )} />
+           <AuthenticatedRoute user={user} exact path='/allusers' render={(props) => (
+            <AllResults alert={this.alert} user={user}  />
+          )} />
+
+          <AuthenticatedRoute user={user} path='/result' render={() => (
+            <Result user={user}/>
+          )} />
           {/* <AuthenticatedRoute user={user} exact path='/spinner' render={() => (
             <Spinnerr alert={this.alert} user={user}  />
           )} /> */}
@@ -79,9 +89,7 @@ class App extends Component {
           <AuthenticatedRoute user={user} path='/change-password' render={() => (
             <ChangePassword alert={this.alert} user={user} />
           )} />
-           <AuthenticatedRoute user={user} exact path='/result' render={() => (
-            <Result user={user}/>
-          )} />
+           
         </main>
       </React.Fragment>
     )

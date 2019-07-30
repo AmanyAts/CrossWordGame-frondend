@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {Link} from 'react-router-dom';
-import { index } from './ScoresApi';
+import { index ,destroy } from './ScoresApi';
 
 class Result extends Component {
 
@@ -18,6 +18,20 @@ class Result extends Component {
         })
         .catch((error) => console.log(error))
     }
+    destroy = (user,scoreId) => {
+        console.log(this.props.user)
+        destroy(user,this.props.user,scoreId)
+        .then(()=> alert('deleted'))
+        .then(()=>{
+          const newScores = this.state.memes.filter((score) => score._id !== scoreId)
+          this.setState({
+            scores: newScores
+          })
+      })
+      .catch(error => console.log(error))
+       
+        
+    }
     render() {
         
         return (
@@ -25,7 +39,8 @@ class Result extends Component {
                  {                    
                     this.state.scores.map((score,index) => (
                    <div key={index}>
-                        <h2>{score.time}</h2>
+                        <h2>{score.time}  <spn id='del'><button  onClick={()=>this.destroy(this.props.user,score._id)}>X</button></spn></h2>
+                       
                     </div>
                 ))}
             </div>
