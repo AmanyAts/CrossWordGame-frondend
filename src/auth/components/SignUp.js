@@ -3,6 +3,8 @@ import { withRouter } from 'react-router-dom'
 
 import { signUp, signIn } from '../api'
 import messages from '../messages'
+import { Link } from 'react-router-dom'
+
 
 class SignUp extends Component {
   constructor () {
@@ -71,6 +73,7 @@ class SignUp extends Component {
           onChange={this.handleChange}
         />
         <button type="submit">Sign Up</button>
+        <Link to="/">Sign In</Link>
       </form>
     )
   }

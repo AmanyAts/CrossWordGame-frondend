@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import './App.scss'
 import { Route } from 'react-router-dom'
-import { Eclipse } from "react-loading-io";
 import Spinnerr from './spinner'
 import Categories from './categories'
 
@@ -53,7 +52,7 @@ class App extends Component {
          <AuthenticatedRoute user={user} path='/board/:id' render={(props) => (
             <Board alert={this.alert} user={user} ud={props.match.params.id} />
           )} />
-          <AuthenticatedRoute user={user} exact path='/' render={(props) => (
+          <AuthenticatedRoute user={user} exact path='/home' render={(props) => (
             <Categories alert={this.alert} user={user} scoreId={props.match.params.id} />
           )} />
            <AuthenticatedRoute user={user} exact path='/allusers' render={(props) => (
@@ -80,7 +79,7 @@ class App extends Component {
           <Route path='/sign-up' render={() => (
             <SignUp alert={this.alert} setUser={this.setUser} />
           )} />
-          <Route path='/sign-in' render={() => (
+          <Route exact path='/' render={() => (
             <SignIn alert={this.alert} setUser={this.setUser} />
           )} />
           <AuthenticatedRoute user={user} path='/sign-out' render={() => (

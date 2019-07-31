@@ -3,6 +3,7 @@ import { withRouter } from 'react-router-dom'
 
 import { signIn } from '../api'
 import messages from '../messages'
+import { Link } from 'react-router-dom'
 
 class SignIn extends Component {
   constructor () {
@@ -26,7 +27,7 @@ class SignIn extends Component {
     signIn(this.state)
       .then(res => setUser(res.data.user))
       .then(() => alert(messages.signInSuccess, 'success'))
-      .then(() => history.push('/'))
+      .then(() => history.push('/home'))
       .catch(error => {
         console.error(error)
         this.setState({ email: '', password: '' })
@@ -38,7 +39,7 @@ class SignIn extends Component {
     const { email, password } = this.state
 
     return (
-      <form className='auth-form' onSubmit={this.onSignIn}>
+      <form className='auth-form ' onSubmit={this.onSignIn}>
         <h3>Sign In</h3>
         <label htmlFor="email">Email</label>
         <input
@@ -59,6 +60,7 @@ class SignIn extends Component {
           onChange={this.handleChange}
         />
         <button type="submit">Sign In</button>
+        <Link to="/sign-up">Sign Up</Link>
       </form>
     )
   }

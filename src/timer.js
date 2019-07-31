@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { create,Update } from './ScoresApi';
-import swal from 'sweetalert';
+import { create } from './ScoresApi';
+
 
 
 class Timer extends Component {
@@ -32,11 +32,10 @@ class Timer extends Component {
     }
     render() {
         let time=`${this.state.min}:${this.state.count}`
-        const scoreId = this.props.scoreId;
         if(this.props.score===4){
             
             clearTimeout(this.myInterval)
-            create(this.props.user,time,1,scoreId)
+            create(this.props.user,time,this.props.game)
             alert('bravoooooo/n you spend '+time)
             // swal({
             //     title: "Good job!",

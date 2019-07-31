@@ -19,9 +19,18 @@ export const indexAll =() => {
     //     }
     })
   }
+  export const indexUsers =() => {
+    return axios({
+      method: 'GET',
+      url: apiUrl + '/users',
+    //   headers: {
+    //       'Authorization': `Bearer ${user.token}`
+    //     }
+    })
+  }
 
 
-export const create = (user,time) => {
+export const create = (user,time,game) => {
     return axios({
       method: 'POST',
       url: apiUrl + '/results',
@@ -30,7 +39,8 @@ export const create = (user,time) => {
       },
       data: {
         score:{
-            time:time
+            time:time,
+            game:game
         }
       }
     })
