@@ -269,6 +269,12 @@ class Board extends Component {
         class:'box'
     })
     }
+
+    solvingGame=()=>{
+        this.setState({
+            class:'green'
+        })
+    }
     
     
     render() {
@@ -307,8 +313,9 @@ class Board extends Component {
                             return <p key={i} className={i}>{e}</p>
                         })}
                         <Timer scoreId={this.props.scoreId} game={this.props.ud} score={this.state.point} user={this.props.user}/>
-                       
+                        <button onClick={this.solvingGame} className='play'>Solve </button>
                       </div>  
+                     
             </div>
         );
     }

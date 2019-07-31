@@ -45,7 +45,7 @@ class Categories extends Component {
                  <button onClick={this.animal}  className={`cat ${this.state.classA}`}>Animals</button>
                  <button onClick={this.lang} className={`cat ${this.state.classL}`}>Lagngues</button>
 
-                    <button className='playbutton' id ='play'><Link to={`/board/${this.state.gameBoardNum}`}>Play</Link></button>
+                    <button className='playbutton play' ><Link to={`/board/${this.state.gameBoardNum}`}>Play</Link></button>
                
             </div>
         );

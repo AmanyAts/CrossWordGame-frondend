@@ -14,7 +14,7 @@ const authenticatedOptions=(user) => (
   </Dropdown.Toggle>
 
   <Dropdown.Menu>
-  <Dropdown.Item href="#/">Categories</Dropdown.Item>
+  <Dropdown.Item href="#/home">Categories</Dropdown.Item>
     <Dropdown.Item href="#/change-password">Setting</Dropdown.Item>
     <Dropdown.Item href="#/result">My games</Dropdown.Item>
     <Dropdown.Item href="#/sign-out">Sign Out</Dropdown.Item>
