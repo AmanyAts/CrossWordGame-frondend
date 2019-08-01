@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import Dropdown from 'react-bootstrap/Dropdown'
+// import Dropdown from 'react-bootstrap/Dropdown'
 
 
 
@@ -8,7 +8,7 @@ import './Header.scss'
 
 const authenticatedOptions=(user) => (
   <React.Fragment >
-      <Dropdown  >
+      {/* <Dropdown  >
   <Dropdown.Toggle id='modal' variant="success" id="dropdown-basic">
   Welcome {user.email}
   </Dropdown.Toggle>
@@ -19,7 +19,7 @@ const authenticatedOptions=(user) => (
     <Dropdown.Item href="#/result">My games</Dropdown.Item>
     <Dropdown.Item href="#/sign-out">Sign Out</Dropdown.Item>
   </Dropdown.Menu>
-</Dropdown>
+</Dropdown> */}
   </React.Fragment>
 )
 
