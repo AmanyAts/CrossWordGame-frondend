@@ -1,24 +1,24 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-// import Dropdown from 'react-bootstrap/Dropdown'
-// import './Header.scss'
+import Dropdown from 'react-bootstrap/Dropdown'
+import './Header.scss'
 
-// const authenticatedOptions=(user) => (
-//   <React.Fragment >
-//       <Dropdown  >
-//   <Dropdown.Toggle id='modal' variant="success" id="dropdown-basic">
-//   Welcome {user.email}
-//   </Dropdown.Toggle>
+const authenticatedOptions=(user) => (
+  <React.Fragment >
+      <Dropdown  >
+  <Dropdown.Toggle id='modal' variant="success" id="dropdown-basic">
+  Welcome {user.email}
+  </Dropdown.Toggle>
 
-//   <Dropdown.Menu>
-//   <Dropdown.Item href="#/home">Categories</Dropdown.Item>
-//     <Dropdown.Item href="#/change-password">Setting</Dropdown.Item>
-//     <Dropdown.Item href="#/result">My games</Dropdown.Item>
-//     <Dropdown.Item href="#/sign-out">Sign Out</Dropdown.Item>
-//   </Dropdown.Menu>
-// </Dropdown>
-//   </React.Fragment>
-// )
+  <Dropdown.Menu>
+  <Dropdown.Item href="#/home">Categories</Dropdown.Item>
+    <Dropdown.Item href="#/change-password">Setting</Dropdown.Item>
+    <Dropdown.Item href="#/result">My games</Dropdown.Item>
+    <Dropdown.Item href="#/sign-out">Sign Out</Dropdown.Item>
+  </Dropdown.Menu>
+</Dropdown>
+  </React.Fragment>
+)
 
 const unauthenticatedOptions = (
   <React.Fragment>
@@ -40,7 +40,7 @@ const Header = ({ user }) => (
     <h1 > Word Search </h1>
     <nav>
       {/* { user && <span>Welcome, {user.email}</span>} */}
-      {/* { user ? authenticatedOptions(user) : '' } */}
+      { user ? authenticatedOptions(user) : '' }
       {/* { alwaysOptions } */}
     </nav>
   </header>
