@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import './App.scss'
 import { Route } from 'react-router-dom'
-import Spinnerr from './spinner'
 import Categories from './categories'
 
 
@@ -46,9 +45,7 @@ class App extends Component {
           <AlertDismissible key={index} variant={alert.type} message={alert.message} />
         ))}
         {/* <Board user={user}/> */}
-        <AuthenticatedRoute user={user} exact path='/spinner' render={(props) => (
-            <Spinnerr alert={this.alert} user={user} scoreId={props.match.params.id} />
-          )} />
+        
          <AuthenticatedRoute user={user} path='/board/:id' render={(props) => (
             <Board alert={this.alert} user={user} ud={props.match.params.id} />
           )} />
