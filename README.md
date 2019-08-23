@@ -5,7 +5,7 @@ Word Search puzzle
 ## Web Application Description 
 Word search puzzle that it gaves you a word and you should find it 
 depend on catogries 
-After solving it calculate time you spend it and sotre it into game data
+After solving it calculate time you spend it and sotre it into your game data
 
 #Prerequisites
 npm  
